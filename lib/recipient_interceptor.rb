@@ -10,8 +10,8 @@ class RecipientInterceptor
     add_custom_headers message
     add_subject_prefix message
     message.to = @recipients
-    message.cc = []
-    message.bcc = []
+    message.cc = nil
+    message.bcc = nil
   end
 
   private
@@ -33,8 +33,8 @@ class RecipientInterceptor
   def add_custom_headers(message)
     {
       'X-Intercepted-To' => message.to || [],
-      'X-Intercepted-Cc' => message.cc || [],
-      'X-Intercepted-Bcc' => message.bcc || []
+      'X-Intercepted-Cc' => message.cc || nil,
+      'X-Intercepted-Bcc' => message.bcc || nil
     }.each do |header, addresses|
       addresses.each do |address|
         message.header = "#{message.header}#{header}: #{address}"
